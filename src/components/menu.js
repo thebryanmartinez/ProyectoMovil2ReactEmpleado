@@ -5,6 +5,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import login from "./login";
 import principalEmpleado from './principalEmpleado';
 import ingresarProductos from './ingresarProductos';
+import inventarioProductos from './inventarioProductos';
 
 const Stack = createNativeStackNavigator();
 export default function menu() {
@@ -12,6 +13,7 @@ export default function menu() {
     <NavigationContainer>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
         <Stack.Screen name="PrincipalEmpleado" component={principalEmpleado} />
+        <Stack.Screen name="InventarioProductos" component={inventarioProductos} />
         <Stack.Screen name="Login" component={login} />
         <Stack.Screen name="IngresarProductos" component={ingresarProductos} />
       </Stack.Navigator>

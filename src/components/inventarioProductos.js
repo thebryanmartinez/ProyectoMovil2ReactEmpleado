@@ -19,14 +19,24 @@ export default function App({ navigation }) {
   const [info, setinfo] = useState([]);
   const [ejecucion, setEjecucion] = useState(null);
   const [search, setSearch] = useState("");
+  const [cantidadProducto, setCantidad_Producto] = useState(null);
 
-  function eliminarProducto(id) {
-    fetch("http://192.168.1.165:3001/api/productos/" + id, {
-      method: "DELETE",
-    })
-      .then((res) => res.text()) // or res.json()
+  function modificarInventario(id) {
+    fetch(
+      "http://192.168.1.165:3001/api/productos/modificarCantidad?idproductos=" +
+        id,
+      {
+        method: "PUT",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ cantidad_producto: cantidadProducto }),
+      }
+    )
+      .then((res) => res.text())
       .then((res) => console.log(res));
-    Alert.alert("Eliminado", "El producto ha sido eliminado con exito");
+    Alert.alert("Prometheus", "La cantidad ha sido actualizada con exito");
   }
 
   if (ejecucion == null) {
@@ -53,7 +63,6 @@ export default function App({ navigation }) {
         const textData = text.toUpperCase();
         return itemData.indexOf(textData) > -1;
       });
-
       setinfo(nuevaInfo);
       setSearch(text);
     } else {
@@ -102,46 +111,44 @@ export default function App({ navigation }) {
                 return (
                   <Pressable style={styles.contenedorFuera}>
                     <View style={styles.contenedorDentro}>
-                      <View style={styles.contenedorImagen}>
-                        <Image
-                          source={require("../../assets/img/adidas3.jpg")}
-                          style={styles.imagen}
-                        />
-                      </View>
                       <View style={styles.contenedorInfo}>
-                        <Text style={styles.productoNombre}>
-                          {item.nombre_producto}
-                        </Text>
-                        <Text style={styles.productoMarca}>
-                          {item.marca_producto}
-                        </Text>
-                        <Text style={styles.productoNombre}></Text>
                         <View>
                           <Text style={styles.productoNombre}>
-                            Precio de compra: L. {item.precio_producto}
+                            {item.nombre_producto}
                           </Text>
+                          <Text style={styles.productoMarca}>
+                            {item.marca_producto}
+                          </Text>
+                        </View>
+                        <View>
                           <Text style={styles.productoNombre}>
-                            Precio de venta: L. {item.costo}
+                            Inventario: {item.cantidad_producto}
                           </Text>
-
-                          <Pressable
-                            onLongPress={() =>
-                              eliminarProducto(item.idproductos)
-                            }
-                          >
-                            <LinearGradient
-                              style={globalBotones.boton}
-                              start={{ x: 0, y: 0 }}
-                              end={{ x: 0, y: 1 }}
-                              colors={["#E43E31", "#F4AA31"]}
-                            >
-                              <Text style={globalBotones.tituloBoton}>
-                                Eliminar
-                              </Text>
-                            </LinearGradient>
-                          </Pressable>
+                        </View>
+                        <View>
+                          <TextInput
+                            keyboardType="number-pad"
+                            placeholder="#"
+                            onChangeText={setCantidad_Producto}
+                            style={globalEntradas.entradaTexto}
+                            placeholderTextColor="#ced4da"
+                          />
                         </View>
                       </View>
+                      <Pressable
+                        onPress={() => modificarInventario(item.idproductos)}
+                      >
+                        <LinearGradient
+                          style={globalBotones.boton}
+                          start={{ x: 0, y: 0 }}
+                          end={{ x: 0, y: 1 }}
+                          colors={["#E43E31", "#F4AA31"]}
+                        >
+                          <Text style={globalBotones.tituloBoton}>
+                            Modificar
+                          </Text>
+                        </LinearGradient>
+                      </Pressable>
                     </View>
                   </Pressable>
                 );
@@ -238,5 +245,10 @@ const styles = StyleSheet.create({
     color: "#ed7731",
     fontSize: 20,
     fontFamily: "montserrat-bold",
+  },
+  contenedorInfo: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-evenly",
   },
 });

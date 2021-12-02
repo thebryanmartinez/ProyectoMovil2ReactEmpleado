@@ -25,6 +25,7 @@ export default function App({ navigation }) {
   const [marca_producto, setmarca_producto] = useState(null);
   const [idcategorias, setidcategoria] = useState(null);
   const [costo, setcosto] = useState(false);
+  const [imagen_producto, setImagen] = useState(false);
 
   const pressingresarproducto = async () => {
     if (
@@ -33,7 +34,8 @@ export default function App({ navigation }) {
       !precio_producto ||
       !marca_producto ||
       !idcategorias ||
-      !costo
+      !costo ||
+      !imagen_producto
     ) {
       console.log("Debe escribir los datos completos");
       Alert.alert("Prometheus", "Debe escribir los datos completos");
@@ -42,30 +44,33 @@ export default function App({ navigation }) {
         var cliente = JSON.parse(await AsyncStorage.getItem("cliente"));
         var token = cliente.token;
 
-        const response = await fetch("http://192.168.1.165:3001/api/productos/guardar", {
-          method: "POST",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-            Authorization: "Bearer " + token,
-          },
+        const response = await fetch(
+          "http://192.168.1.165:3001/api/productos/guardar",
+          {
+            method: "POST",
+            headers: {
+              Accept: "application/json",
+              "Content-Type": "application/json",
+              Authorization: "Bearer " + token,
+            },
 
-          body: JSON.stringify({
-            nombre_producto: nombre_producto,
-            cantidad_producto: cantidad_producto,
-            precio_producto: precio_producto,
-            marca_producto: marca_producto,
-            idcategorias: idcategorias,
-            costo: costo,
-          }),
-        });
+            body: JSON.stringify({
+              nombre_producto: nombre_producto,
+              cantidad_producto: cantidad_producto,
+              precio_producto: precio_producto,
+              marca_producto: marca_producto,
+              idcategorias: idcategorias,
+              costo: costo,
+              imagen_producto: imagen_producto,
+            }),
+          }
+        );
         Alert.alert("Prometheus", "Producto ingresado correctamente");
       } catch (error) {
         console.error(error);
       }
     }
   };
-
 
   return (
     <SafeAreaView style={styles.fondo}>
@@ -123,6 +128,13 @@ export default function App({ navigation }) {
             onChangeText={setprecio_producto}
             placeholder="Precio de venta"
           ></TextInput>
+          <Text style={globalTyT.texto}>Imagen del producto: </Text>
+          <TextInput
+            placeholderTextColor="#ced4da"
+            style={globalEntradas.entradaTexto}
+            onChangeText={setImagen}
+            placeholder="Imagen del producto"
+          ></TextInput>
           <View style={styles.contenedorBotones}>
             <Pressable onPress={() => navigation.replace("PrincipalEmpleado")}>
               <LinearGradient
@@ -158,6 +170,11 @@ export default function App({ navigation }) {
             </Pressable>
             <Pressable onPress={() => navigation.replace("IngresarProductos")}>
               <Image source={require("../../assets/img/add.png")} />
+            </Pressable>
+            <Pressable
+              onPress={() => navigation.replace("InventarioProductos")}
+            >
+              <Image source={require("../../assets/img/storage.png")} />
             </Pressable>
           </LinearGradient>
         </View>
