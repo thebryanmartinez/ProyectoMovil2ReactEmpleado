@@ -174,6 +174,9 @@ export default function App({ navigation }) {
             >
               <Image source={require("../../assets/img/storage.png")} />
             </Pressable>
+            <Pressable onPress={() => navigation.replace("ListarProductos")}>
+              <Image source={require("../../assets/img/image.png")} />
+            </Pressable>
           </LinearGradient>
         </View>
       </View>

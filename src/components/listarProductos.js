@@ -10,30 +10,19 @@ import {
   Alert,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { LinearGradient } from "expo-linear-gradient";
 import { globalFooter } from "../styles/footer";
 import { globalBotones } from "../styles/botones";
-import { globalEntradas } from "../styles/entradas";
 
 export default function App({ navigation }) {
   const [info, setinfo] = useState([]);
   const [ejecucion, setEjecucion] = useState(null);
   const [search, setSearch] = useState("");
-
-  function obtenerImagen() {
-    fetch("http://192.168.1.165:3001/imagenes/imagen.jpg", {
-      method: "GET",
-    });
-  }
-
-  function eliminarProducto(id) {
-    fetch("http://192.168.1.165:3001/api/productos/" + id, {
-      method: "DELETE",
-    })
-      .then((res) => res.text()) // or res.json()
-      .then((res) => console.log(res));
-    Alert.alert("Eliminado", "El producto ha sido eliminado con exito");
-  }
+  const [idproductos, setidproductos] = useState(null);
+  const [nombre_producto, setnombre_producto] = useState(null);
+  const [marca_producto, setmarca_producto] = useState(null);
+  const [precio_producto, setprecio_producto] = useState(null);
 
   if (ejecucion == null) {
     try {
@@ -49,6 +38,22 @@ export default function App({ navigation }) {
       console.error(error);
     }
   }
+
+  const elegir = async (item) => {
+    console.log(item);
+    setidproductos(item.idproductos);
+    setnombre_producto(item.nombre_producto);
+    setmarca_producto(item.marca_producto);
+    setprecio_producto(item.precio_producto);
+    const datos = {
+      idproductos: idproductos,
+      nombre_producto: nombre_producto,
+      marca_producto: marca_producto,
+      precio_producto: precio_producto,
+    };
+    const datos_productos = JSON.stringify(datos);
+    await AsyncStorage.setItem("datos_productos", datos_productos);
+  };
 
   const searchFilter = (text) => {
     if (text) {
@@ -88,7 +93,6 @@ export default function App({ navigation }) {
         <View style={styles.header}>
           <Image source={require("../../assets/img/busqueda.png")} />
           <TextInput
-            color="#ed7731"
             style={styles.busqueda}
             placeholder="Buscar producto"
             placeholderTextColor="#ed7731"
@@ -100,17 +104,24 @@ export default function App({ navigation }) {
         <View style={styles.main}>
           <View>
             <FlatList
-              numColumns={1}
+              numColumns={2}
               style={styles.productos}
               data={info}
               keyExtractor={(item) => item.idproductos}
               renderItem={({ item }) => {
                 return (
-                  <Pressable style={styles.contenedorFuera}>
+                  <Pressable
+                    style={styles.contenedorFuera}
+                    onPress={() => navigation.replace("GuardarImagen")}
+                  >
                     <View style={styles.contenedorDentro}>
                       <View style={styles.contenedorImagen}>
-                        <Image source={""} style={styles.imagen} />
+                        <Image
+                          source={require("../../assets/img/adidas3.jpg")}
+                          style={styles.imagen}
+                        ></Image>
                       </View>
+
                       <View style={styles.contenedorInfo}>
                         <Text style={styles.productoNombre}>
                           {item.nombre_producto}
@@ -118,33 +129,20 @@ export default function App({ navigation }) {
                         <Text style={styles.productoMarca}>
                           {item.marca_producto}
                         </Text>
-                        <Text style={styles.productoNombre}></Text>
-                        <View>
-                          <Text style={styles.productoNombre}>
-                            Precio de compra: L. {item.precio_producto}
-                          </Text>
-                          <Text style={styles.productoNombre}>
-                            Precio de venta: L. {item.costo}
-                          </Text>
-
-                          <Pressable
-                            onLongPress={() =>
-                              eliminarProducto(item.idproductos)
-                            }
-                          >
-                            <LinearGradient
-                              style={globalBotones.boton}
-                              start={{ x: 0, y: 0 }}
-                              end={{ x: 0, y: 1 }}
-                              colors={["#E43E31", "#F4AA31"]}
-                            >
-                              <Text style={globalBotones.tituloBoton}>
-                                Eliminar
-                              </Text>
-                            </LinearGradient>
-                          </Pressable>
-                        </View>
+                        <Text style={styles.productoPrecio}>
+                          L. {item.costo}
+                        </Text>
                       </View>
+                      <Pressable onPress={() => elegir(item)}>
+                        <LinearGradient
+                          style={globalBotones.boton}
+                          start={{ x: 0, y: 0 }}
+                          end={{ x: 0, y: 1 }}
+                          colors={["#E43E31", "#F4AA31"]}
+                        >
+                          <Text style={globalBotones.tituloBoton}>Elegir</Text>
+                        </LinearGradient>
+                      </Pressable>
                     </View>
                   </Pressable>
                 );
@@ -152,6 +150,7 @@ export default function App({ navigation }) {
             />
           </View>
         </View>
+
         <View>
           <LinearGradient
             style={globalFooter.footer}
@@ -205,7 +204,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
   },
   contenedorFuera: {
-    width: "100%",
+    width: "50%",
     borderWidth: 1,
     borderColor: "#eee",
   },
@@ -223,8 +222,8 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   imagen: {
-    width: 375,
-    height: 200,
+    width: 185,
+    height: 150,
   },
   productoNombre: {
     textAlign: "left",
