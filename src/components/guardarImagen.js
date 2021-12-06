@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import {
   StyleSheet,
   Text,
+  TextInput,
   View,
   Alert,
   ScrollView,
@@ -20,9 +21,23 @@ export default function profileuser({ navigation }) {
   const [cargando, setCargando] = useState(false);
   const [ejecucion, setEjecucion] = useState(null);
   const [idproductos, setIdProductos] = useState(null);
+  var [nombre_producto, setnombre_producto] = useState(null);
+  var [marca_producto, setmarca_producto] = useState(null);
 
   const [imagen, setImagen] = useState("");
+  
 
+  const calculosListado = async () => {
+    try {
+      var datos = JSON.parse(await AsyncStorage.getItem("datos_productos"));
+    } catch (error) {
+      Alert.alert("Error al leer:" + error);
+    }
+    setIdProductos(datos.idproductos);
+    setnombre_producto(datos.nombre_producto);
+    setmarca_producto(datos.marca_producto);
+
+  }
   const abrirGaleria = async () => {
     const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
 
@@ -54,7 +69,7 @@ export default function profileuser({ navigation }) {
 
     try {
       const response = await fetch(
-        "http://192.168.1.165:3001/api/archivos/img",
+        "http://192.168.0.8:3001/api/archivos/img",
         {
           method: "POST",
           body: image,
@@ -94,8 +109,8 @@ export default function profileuser({ navigation }) {
             </View>
           </View>
           <View style={styles.contenedorInfo}>
-            <Text style={globalTyT.texto}>Producto: </Text>
-            <Text style={globalTyT.texto}>Marca: </Text>
+            <Text style={globalTyT.texto}>{nombre_producto}</Text>
+            <Text style={globalTyT.texto}>{marca_producto}</Text>
           </View>
           <View style={styles.contenedorBotones}>
             <Pressable onPress={abrirGaleria}>
@@ -120,6 +135,16 @@ export default function profileuser({ navigation }) {
                 colors={["#E43E31", "#F4AA31"]}
               >
                 <Text style={globalBotones.tituloBoton}>Regresar</Text>
+              </LinearGradient>
+            </Pressable>
+            <Pressable onPress={calculosListado}>
+              <LinearGradient
+                style={globalBotones.boton}
+                start={{ x: 0, y: 0 }}
+                end={{ x: 0, y: 1 }}
+                colors={["#E43E31", "#F4AA31"]}
+              >
+                <Text style={globalBotones.tituloBoton}>Listar</Text>
               </LinearGradient>
             </Pressable>
           </View>

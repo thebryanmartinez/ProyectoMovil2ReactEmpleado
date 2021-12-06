@@ -21,13 +21,13 @@ export default function App({ navigation }) {
   const [search, setSearch] = useState("");
 
   function obtenerImagen() {
-    fetch("http://192.168.1.165:3001/imagenes/imagen.jpg", {
+    fetch("http://192.168.0.8:3001/imagenes/imagen.jpg", {
       method: "GET",
     });
   }
 
   function eliminarProducto(id) {
-    fetch("http://192.168.1.165:3001/api/productos/" + id, {
+    fetch("http://192.168.0.8:3001/api/productos/" + id, {
       method: "DELETE",
     })
       .then((res) => res.text()) // or res.json()
@@ -37,7 +37,7 @@ export default function App({ navigation }) {
 
   if (ejecucion == null) {
     try {
-      const response = fetch("http://192.168.1.165:3001/api/productos/listar2")
+      const response = fetch("http://192.168.0.8:3001/api/productos/listar2")
         .then((response) => response.json())
         .then((json) => {
           setinfo(json);
@@ -65,7 +65,7 @@ export default function App({ navigation }) {
     } else {
       try {
         const response = fetch(
-          "http://192.168.1.165:3001/api/productos/listar2"
+          "http://192.168.0.8:3001/api/productos/listar2"
         )
           .then((response) => response.json())
           .then((json) => {
