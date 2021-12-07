@@ -6,7 +6,6 @@ import {
   TextInput,
   Alert,
   Pressable,
-  Image,
 } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { LinearGradient } from "expo-linear-gradient";
@@ -26,7 +25,7 @@ export default function login({ navigation }) {
     } else {
       try {
         const response = await fetch(
-          "http://192.168.0.8:3001/api/autenticacion/iniciosesionempleado/",
+          "http://192.168.1.165:3001/api/autenticacion/iniciosesionempleado/",
           {
             method: "POST",
             headers: {

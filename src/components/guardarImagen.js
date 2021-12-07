@@ -2,13 +2,12 @@ import React, { useState } from "react";
 import {
   StyleSheet,
   Text,
-  TextInput,
   View,
-  Alert,
   ScrollView,
   ActivityIndicator,
   Image,
   Pressable,
+  Alert,
 } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { LinearGradient } from "expo-linear-gradient";
@@ -25,7 +24,6 @@ export default function profileuser({ navigation }) {
   var [marca_producto, setmarca_producto] = useState(null);
 
   const [imagen, setImagen] = useState("");
-  
 
   const calculosListado = async () => {
     try {
@@ -36,8 +34,7 @@ export default function profileuser({ navigation }) {
     setIdProductos(datos.idproductos);
     setnombre_producto(datos.nombre_producto);
     setmarca_producto(datos.marca_producto);
-
-  }
+  };
   const abrirGaleria = async () => {
     const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
 
@@ -69,12 +66,13 @@ export default function profileuser({ navigation }) {
 
     try {
       const response = await fetch(
-        "http://192.168.0.8:3001/api/archivos/img",
+        "http://192.168.1.165:3001/api/archivos/img",
         {
           method: "POST",
           body: image,
         }
       );
+      Alert.alert("Prometheus", "La imagen fue subida con exito");
     } catch (error) {
       console.log(error);
     }

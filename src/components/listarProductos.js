@@ -7,7 +7,6 @@ import {
   FlatList,
   Image,
   TextInput,
-  Alert,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -26,7 +25,7 @@ export default function App({ navigation }) {
 
   if (ejecucion == null) {
     try {
-      const response = fetch("http://192.168.0.8:3001/api/productos/listar2")
+      const response = fetch("http://192.168.1.165:3001/api/productos/listar2")
         .then((response) => response.json())
         .then((json) => {
           setinfo(json);
@@ -70,7 +69,7 @@ export default function App({ navigation }) {
     } else {
       try {
         const response = fetch(
-          "http://192.168.0.8:3001/api/productos/listar2"
+          "http://192.168.1.165:3001/api/productos/listar2"
         )
           .then((response) => response.json())
           .then((json) => {
@@ -117,7 +116,9 @@ export default function App({ navigation }) {
                     <View style={styles.contenedorDentro}>
                       <View style={styles.contenedorImagen}>
                         <Image
-                          source={require("../../assets/img/adidas3.jpg")}
+                          source={{
+                            uri: "http://192.168.1.165:3001/api/imagenes/img-1638840892328-988378123image.jpg",
+                          }}
                           style={styles.imagen}
                         ></Image>
                       </View>

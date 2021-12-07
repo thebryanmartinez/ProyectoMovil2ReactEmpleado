@@ -25,7 +25,6 @@ export default function App({ navigation }) {
   const [marca_producto, setmarca_producto] = useState(null);
   const [idcategorias, setidcategoria] = useState(null);
   const [costo, setcosto] = useState(false);
-  const [imagen_producto, setImagen] = useState(false);
 
   const pressingresarproducto = async () => {
     if (
@@ -34,8 +33,7 @@ export default function App({ navigation }) {
       !precio_producto ||
       !marca_producto ||
       !idcategorias ||
-      !costo ||
-      !imagen_producto
+      !costo
     ) {
       console.log("Debe escribir los datos completos");
       Alert.alert("Prometheus", "Debe escribir los datos completos");
@@ -45,7 +43,7 @@ export default function App({ navigation }) {
         var token = cliente.token;
 
         const response = await fetch(
-          "http://192.168.0.8:3001/api/productos/guardar",
+          "http://192.168.1.165:3001/api/productos/guardar",
           {
             method: "POST",
             headers: {
@@ -61,7 +59,6 @@ export default function App({ navigation }) {
               marca_producto: marca_producto,
               idcategorias: idcategorias,
               costo: costo,
-              imagen_producto: imagen_producto,
             }),
           }
         );
@@ -128,13 +125,7 @@ export default function App({ navigation }) {
             onChangeText={setprecio_producto}
             placeholder="Precio de venta"
           ></TextInput>
-          <Text style={globalTyT.texto}>Imagen del producto: </Text>
-          <TextInput
-            placeholderTextColor="#ced4da"
-            style={globalEntradas.entradaTexto}
-            onChangeText={setImagen}
-            placeholder="Imagen del producto"
-          ></TextInput>
+
           <View style={styles.contenedorBotones}>
             <Pressable onPress={() => navigation.replace("PrincipalEmpleado")}>
               <LinearGradient

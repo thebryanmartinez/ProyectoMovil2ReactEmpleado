@@ -14,8 +14,9 @@ export default function menu() {
   return (
     <NavigationContainer>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="PrincipalEmpleado" component={principalEmpleado} />
         <Stack.Screen name="Login" component={login} />
+        <Stack.Screen name="PrincipalEmpleado" component={principalEmpleado} />
+        
         <Stack.Screen name="ListarProductos" component={listarProductos} />
         <Stack.Screen name="InventarioProductos" component={inventarioProductos} />
         <Stack.Screen name="IngresarProductos" component={ingresarProductos} />
