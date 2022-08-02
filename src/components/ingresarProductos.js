@@ -43,7 +43,7 @@ export default function App({ navigation }) {
         var token = cliente.token;
 
         const response = await fetch(
-          "http://192.168.1.165:3001/api/productos/guardar",
+          "http://192.168.0.3:3001/api/productos/guardar",
           {
             method: "POST",
             headers: {

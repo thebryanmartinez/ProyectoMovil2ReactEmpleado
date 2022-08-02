@@ -66,7 +66,7 @@ export default function profileuser({ navigation }) {
 
     try {
       const response = await fetch(
-        "http://192.168.1.165:3001/api/archivos/img",
+        "http://192.168.0.3:3001/api/archivos/img",
         {
           method: "POST",
           body: image,

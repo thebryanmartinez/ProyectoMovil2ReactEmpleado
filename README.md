@@ -1,42 +1,61 @@
 
-# Aplicación Móvil del Empleado - Prometheus
-Esta es una aplicación móvil elaborada para la clase de Programación Móvil 2. Esta es la segunda aplicación móvil que realizo con React Native. Este proyecto fue hecho por un equipo de tres personas liderado por mí.
-Esta aplicación móvil fue elaborada por una tienda ficticia que vende ropa deportiva  llamada Prometheus.
+![Prometheus Banner](prometheus-app-banner.png)
 
-## Descripción del proyecto
-Este proyecto fue elaborado con Javascript, React Native y Expo. 
+![Javascript](https://img.shields.io/badge/JavaScript-F7DF1E.svg?style=for-the-badge&logo=JavaScript&logoColor=black)
+![React Native](https://img.shields.io/badge/React-61DAFB.svg?style=for-the-badge&logo=React&logoColor=black)
+![Figma](https://img.shields.io/badge/Figma-F24E1E.svg?style=for-the-badge&logo=Figma&logoColor=white)
+![Expo](https://img.shields.io/badge/Expo-000020.svg?style=for-the-badge&logo=Expo&logoColor=white)
 
-Esta aplicación móvil está conectada a ana API que fue realizada por este mismo equipo para poder almacenar y recolectar datos e información de la base de datos de MySQL que se corre de manera local en una computadora.
-También se hizo una aplicación para el cliente, en el cual él o ella podría hacer las compras de estos artículos de vestimenta. Aquí están los enlaces para los otros repositorios:
-- Prometheus API: https://github.com/Bryanmartz972/ProyectoMovil2
-- Prometheus aplicación del cliente: https://github.com/Bryanmartz972/ProyectoMovil2ReactUsuario   
+# Prometheus Employee App
+This is a mobile application made for the Mobile Programming 2 class. This is the second mobile application that I make with React Native. This project was made by a team of three people led by me. This mobile application was made by a fictitious store that sells sportswear called Prometheus.
 
+## Description
 
-## Características
+This project was developed with Javascript, React Native and Expo.
 
-- Inicio de sesión y creación de cuenta a la aplicación
-- CRUD de los productos
-- Búsqueda de productos
-- Acceso a la cámara del celular y al explorador de archivos para seleccionar una imagen para el nuevo producto a introducir
+This mobile application has to be connected to an API that was made by this same team in order to store and collect data and information from the MySQL database running locally. A similar application was also made for the store clerk, in which he or she could add new products, replenish inventory, and delete or modify items on sale. Here are the links to the other repositories:
+- [API Prometheus](https://github.com/Bryanmartz972/ProyectoMovil2)
+- [Mobile client app](https://github.com/Bryanmartz972/ProyectoMovil2ReactUsuario)
 
+## Installation
 
-## Instalación
-Para utilizar el proyecto de manera local en la computadora, clonar el repositorio o descargar la carpeta .zip y extraer el folder en el lugar que se desee.
-Una vez que se tenga el proyecto, con la terminal de Visual Studio Code o con cualquier otra terminal, correr los siguientes comandos:
+To install the project on the computer, clone the repository or download the .zip folder and extract it to any other folder. Once you have the project, in the Visual Studio Code terminal or in another terminal, run the following commands:
 
 ```bash
-  npm i // Para instalar las dependencias
-  expo start // Para correr el proyecto
-
+  npm i
+  expo start
 ```
-Para probar el proyecto:
-- Ejecutar la API antes de este proyecto
-- Cambiar la dirección IP en cualquier archivo que se muestre una dirección IP distinta a la nuestra
 
-Cuando se hagan esos cambios, se puede abrir la aplicación con la aplicación "Expo Go" en un celular y conectándose a la aplicación por medio del código QR que se muestra en las herramientas de desarrollador. 
-    
-## Autores
-Aquí están los perfiles de GitHub de los demás miembros del equipo (incluyéndome) que hicieron realidad esta aplicación:
+To test the project:
+
+- The API must be running before the application
+- You have to change the IP address in any file that presents another IP address
+
+When all that is changed, you can open the application through the "Expo Go" application on your cell phone and connect it through the QR code by appearing in the terminal when running the project.
+## Features
+
+- 👤 Login and Signup
+- 📦 CRUD of products
+- 🔎 Search and filters of products
+- 📷 Access to camera and file explorer for selecting products images
+## Tech Stack
+
+- ⚛️ React Native
+- 📱 Expo
+- ✖️ Axios
+
+
+
+## Screenshots
+
+![App Screenshot](login-employee.png)
+![App Screenshot](inventory.png)
+![App Screenshot](inventory-2.png)
+
+
+## Authors
+
+Here are the GitHub profiles of the team members (including me) who made this API a reality:
 
 - [@Bryanmartz972](https://github.com/Bryanmartz972) 
 - [@Otoniel18a](https://github.com/Otoniel18a)
